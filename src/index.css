@@ -1,68 +1,505 @@
+/* ===================================================================
+   FONTS - Import First
+   =================================================================== */
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@600;700;800&display=swap');
+
+@font-face {
+  font-family: Augestina;
+  src: url(/src/assets/fonts/Agustina.otf);
+}
+
+/* ===================================================================
+   TAILWIND DIRECTIVES
+   =================================================================== */
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ===================================================================
+   CSS VARIABLES - Theme Colors
+   =================================================================== */
+
 :root {
-  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
-  line-height: 1.5;
-  font-weight: 400;
-
-  color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
-
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  --color-primary: #818cf8;
+  --color-primary-rgb: 129, 140, 248;
+  --color-secondary: #a78bfa;
+  --color-secondary-rgb: 167, 139, 250;
+  --color-accent: #f59e0b;
+  --color-accent-rgb: 245, 158, 11;
+  --color-dark: #0f172a;
+  --color-light: #f1f5f9;
 }
 
-a {
-  font-weight: 500;
-  color: #646cff;
-  text-decoration: inherit;
-}
-a:hover {
-  color: #535bf2;
-}
+/* ===================================================================
+   BASE LAYER - Global Styles
+   =================================================================== */
 
-body {
-  margin: 0;
-  display: flex;
-  place-items: center;
-  min-width: 320px;
-  min-height: 100vh;
-}
-
-h1 {
-  font-size: 3.2em;
-  line-height: 1.1;
-}
-
-button {
-  border-radius: 8px;
-  border: 1px solid transparent;
-  padding: 0.6em 1.2em;
-  font-size: 1em;
-  font-weight: 500;
-  font-family: inherit;
-  background-color: #1a1a1a;
-  cursor: pointer;
-  transition: border-color 0.25s;
-}
-button:hover {
-  border-color: #646cff;
-}
-button:focus,
-button:focus-visible {
-  outline: 4px auto -webkit-focus-ring-color;
-}
-
-@media (prefers-color-scheme: light) {
-  :root {
-    color: #213547;
-    background-color: #ffffff;
+@layer base {
+  html {
+    scroll-behavior: smooth;
   }
-  a:hover {
-    color: #747bff;
+
+  /* Global Scrollbar */
+  ::-webkit-scrollbar {
+    width: 10px;
   }
-  button {
-    background-color: #f9f9f9;
+
+  ::-webkit-scrollbar-track {
+    background-color: var(--color-dark);
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background-color: var(--color-primary);
+    border-radius: 5px;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background-color: var(--color-secondary);
+  }
+
+  /* Selection color */
+  ::selection {
+    background: rgba(var(--color-primary-rgb), 0.3);
+    color: white;
+  }
+
+  ::-moz-selection {
+    background: rgba(var(--color-primary-rgb), 0.3);
+    color: white;
+  }
+
+  /* Focus styles for accessibility */
+  *:focus-visible {
+    outline: 2px solid var(--color-primary);
+    outline-offset: 2px;
+  }
+}
+
+/* ===================================================================
+   COMPONENTS LAYER - Base Glassmorphism
+   =================================================================== */
+
+@layer components {
+
+  /* Standard Glass Card */
+  .glass-dark {
+    @apply transition-all duration-300;
+    background: rgba(17, 24, 39, 0.7);
+    backdrop-filter: blur(20px) saturate(180%);
+    -webkit-backdrop-filter: blur(20px) saturate(180%);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow:
+      0 8px 32px 0 rgba(0, 0, 0, 0.37),
+      inset 0 1px 0 0 rgba(255, 255, 255, 0.05);
+  }
+
+  .glass-dark:hover {
+    border-color: rgba(255, 255, 255, 0.2);
+    box-shadow:
+      0 12px 40px 0 rgba(0, 0, 0, 0.5),
+      inset 0 2px 4px 0 rgba(255, 255, 255, 0.1);
+  }
+
+  /* Premium Glass with Gradient Border */
+  .glass-premium {
+    @apply transition-all duration-300;
+    background: linear-gradient(135deg,
+        rgba(17, 24, 39, 0.8) 0%,
+        rgba(17, 24, 39, 0.6) 100%);
+    backdrop-filter: blur(24px) saturate(200%);
+    -webkit-backdrop-filter: blur(24px) saturate(200%);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    box-shadow:
+      0 8px 32px 0 rgba(0, 0, 0, 0.37),
+      inset 0 1px 0 0 rgba(255, 255, 255, 0.05);
+  }
+
+  .glass-premium:hover {
+    border-color: rgba(255, 255, 255, 0.25);
+    box-shadow:
+      0 12px 40px 0 rgba(0, 0, 0, 0.5),
+      inset 0 2px 4px 0 rgba(255, 255, 255, 0.1);
+  }
+
+  /* Frosted Glass - Heavy Blur */
+  .glass-frosted {
+    @apply transition-all duration-300;
+    background: rgba(17, 24, 39, 0.5);
+    backdrop-filter: blur(40px) saturate(180%);
+    -webkit-backdrop-filter: blur(40px) saturate(180%);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    box-shadow:
+      0 8px 32px 0 rgba(0, 0, 0, 0.4),
+      inset 0 2px 4px 0 rgba(255, 255, 255, 0.1);
+  }
+
+  .glass-frosted:hover {
+    border-color: rgba(255, 255, 255, 0.25);
+    box-shadow:
+      0 12px 40px 0 rgba(0, 0, 0, 0.5),
+      inset 0 2px 4px 0 rgba(255, 255, 255, 0.15);
+  }
+
+  /* Liquid Glass - Animated Shimmer */
+  .glass-liquid {
+    @apply transition-all duration-300;
+    background: linear-gradient(135deg,
+        rgba(17, 24, 39, 0.75) 0%,
+        rgba(31, 41, 55, 0.75) 50%,
+        rgba(17, 24, 39, 0.75) 100%);
+    background-size: 200% 200%;
+    backdrop-filter: blur(20px) saturate(180%);
+    -webkit-backdrop-filter: blur(20px) saturate(180%);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    animation: liquidShimmer 8s ease infinite;
+    box-shadow:
+      0 8px 32px 0 rgba(0, 0, 0, 0.4),
+      inset 0 1px 0 0 rgba(255, 255, 255, 0.1);
+  }
+
+  .glass-liquid:hover {
+    border-color: rgba(255, 255, 255, 0.2);
+    box-shadow:
+      0 12px 40px 0 rgba(0, 0, 0, 0.5),
+      inset 0 2px 4px 0 rgba(255, 255, 255, 0.15);
+  }
+
+  /* Glass with Primary Color Tint */
+  .glass-tinted {
+    @apply transition-all duration-300;
+    background: linear-gradient(135deg,
+        rgba(129, 140, 248, 0.1) 0%,
+        rgba(17, 24, 39, 0.7) 100%);
+    backdrop-filter: blur(20px) saturate(180%);
+    -webkit-backdrop-filter: blur(20px) saturate(180%);
+    border: 1px solid rgba(129, 140, 248, 0.2);
+    box-shadow:
+      0 8px 32px 0 rgba(0, 0, 0, 0.37),
+      inset 0 1px 0 0 rgba(255, 255, 255, 0.1);
+  }
+
+  .glass-tinted:hover {
+    border-color: rgba(129, 140, 248, 0.3);
+    box-shadow:
+      0 12px 40px 0 rgba(0, 0, 0, 0.5),
+      inset 0 2px 4px 0 rgba(255, 255, 255, 0.1);
+  }
+
+  /* Navbar Glass Effect */
+  .navbar-glass {
+    background: rgba(17, 24, 39, 0.8);
+    backdrop-filter: blur(20px) saturate(180%);
+    -webkit-backdrop-filter: blur(20px) saturate(180%);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  }
+
+  /* Glass Button Style */
+  .glass-button {
+    @apply transition-all duration-300;
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+  }
+
+  .glass-button:hover {
+    background: rgba(255, 255, 255, 0.15);
+    border-color: rgba(255, 255, 255, 0.3);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+    transform: translateY(-2px);
+  }
+
+  .glass-button:active {
+    transform: translateY(0);
+  }
+
+  /* Legacy Glass for Compatibility */
+  .glass {
+    background: rgba(241, 245, 249, 0.1);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(241, 245, 249, 0.2);
+    box-shadow: 0 8px 32px 0 rgba(99, 102, 241, 0.2);
+  }
+}
+
+/* ===================================================================
+   APPLE LIQUID GLASS - WWDC25 AUTHENTIC EFFECTS
+   =================================================================== */
+
+@layer components {
+
+  /* Base Liquid Glass Apple Effect */
+  .liquid-glass-apple {
+    position: relative;
+    overflow: hidden;
+    box-shadow:
+      inset 0 1px 1px 0 rgba(255, 255, 255, 0.15),
+      0 2px 8px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+  }
+
+  /* Top Lensing (Static Light Refraction) */
+  .liquid-glass-apple::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 35%;
+    background: linear-gradient(180deg,
+        rgba(255, 255, 255, 0.35) 0%,
+        rgba(255, 255, 255, 0.1) 50%,
+        transparent 100%);
+    border-radius: inherit;
+    opacity: 0;
+    transition: opacity 0.4s ease;
+    pointer-events: none;
+    mix-blend-mode: overlay;
+  }
+
+  /* Interactive Center Glow */
+  .liquid-glass-apple::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    background: radial-gradient(circle,
+        rgba(255, 255, 255, 0.5) 0%,
+        rgba(255, 255, 255, 0.2) 40%,
+        transparent 70%);
+    border-radius: 50%;
+    opacity: 0;
+    transform: translate(-50%, -50%);
+    transition: width 0.6s ease, height 0.6s ease, opacity 0.4s ease;
+    pointer-events: none;
+    mix-blend-mode: overlay;
+  }
+
+  .liquid-glass-apple:hover {
+    box-shadow:
+      inset 0 2px 2px 0 rgba(255, 255, 255, 0.25),
+      inset 0 -1px 2px 0 rgba(255, 255, 255, 0.1),
+      0 4px 16px rgba(0, 0, 0, 0.15);
+  }
+
+  .liquid-glass-apple:hover::before {
+    opacity: 1;
+  }
+
+  .liquid-glass-apple:hover::after {
+    width: 180%;
+    height: 180%;
+    opacity: 1;
+  }
+
+  .liquid-glass-apple:active::after {
+    width: 220%;
+    height: 220%;
+    transition: width 0.3s ease, height 0.3s ease;
+  }
+
+  /* Light Reflection for Buttons */
+  .liquid-glass-button {
+    position: relative;
+    overflow: hidden;
+    box-shadow:
+      inset 0 1px 1px 0 rgba(255, 255, 255, 0.2),
+      0 2px 8px rgba(0, 0, 0, 0.15);
+    transition: all 0.3s ease;
+  }
+
+  .liquid-glass-button::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 50%;
+    background: linear-gradient(180deg,
+        rgba(255, 255, 255, 0.4) 0%,
+        transparent 100%);
+    border-radius: inherit;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    pointer-events: none;
+    mix-blend-mode: overlay;
+  }
+
+  .liquid-glass-button:hover {
+    box-shadow:
+      inset 0 2px 2px 0 rgba(255, 255, 255, 0.3),
+      0 4px 12px rgba(0, 0, 0, 0.2);
+    transform: translateY(-2px);
+  }
+
+  .liquid-glass-button:hover::before {
+    opacity: 1;
+  }
+
+  .liquid-glass-button:active {
+    transform: translateY(0);
+  }
+
+  /* CURSOR-REACTIVE SPECULAR HIGHLIGHTS (Apple WWDC25) */
+  .liquid-glass-cursor-reactive {
+    position: relative;
+    overflow: hidden;
+  }
+
+  /* Primary Specular Highlight - Follows Cursor */
+  .liquid-glass-cursor-reactive::before {
+    content: '';
+    position: absolute;
+    width: 300px;
+    height: 300px;
+    background: radial-gradient(circle,
+        rgba(255, 255, 255, 0.5) 0%,
+        rgba(255, 255, 255, 0.25) 20%,
+        transparent 50%);
+    left: var(--mouse-x, 50%);
+    top: var(--mouse-y, 50%);
+    transform: translate(-50%, -50%);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.25s ease;
+    mix-blend-mode: overlay;
+    filter: blur(20px);
+  }
+
+  /* Edge Glow - Adaptive Border Light */
+  .liquid-glass-cursor-reactive::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    background:
+      radial-gradient(circle at var(--mouse-x, 50%) var(--mouse-y, 50%),
+        rgba(255, 255, 255, 0) 0%,
+        rgba(255, 255, 255, 0) 60%,
+        rgba(255, 255, 255, 0.15) 80%,
+        rgba(255, 255, 255, 0.3) 100%);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.25s ease;
+    mix-blend-mode: overlay;
+  }
+
+  .liquid-glass-cursor-reactive:hover::before,
+  .liquid-glass-cursor-reactive:hover::after {
+    opacity: 1;
+  }
+
+  /* Ensure Content Stays Above Light Effects */
+  .liquid-glass-cursor-reactive>* {
+    position: relative;
+    z-index: 2;
+  }
+}
+
+/* ===================================================================
+   KEYFRAME ANIMATIONS
+   =================================================================== */
+
+@keyframes liquidShimmer {
+
+  0%,
+  100% {
+    background-position: 0% 50%;
+  }
+
+  50% {
+    background-position: 100% 50%;
+  }
+}
+
+/* ===================================================================
+   UTILITY STYLES
+   =================================================================== */
+
+/* Modal scroll prevention */
+body.modal-open {
+  overflow: hidden;
+}
+
+/* Theme Switcher Custom Scrollbar */
+.theme-scrollbar::-webkit-scrollbar {
+  width: 6px;
+}
+
+.theme-scrollbar::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 10px;
+}
+
+.theme-scrollbar::-webkit-scrollbar-thumb {
+  background: var(--color-primary);
+  border-radius: 10px;
+}
+
+.theme-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: var(--color-secondary);
+}
+
+/* Custom Scrollbar for Resume Modal */
+.custom-scrollbar::-webkit-scrollbar {
+  width: 8px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 10px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background: var(--color-primary);
+  border-radius: 10px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: var(--color-secondary);
+}
+
+/* Custom Font Styles */
+#nav-title {
+  font-family: Augestina;
+  text-transform: capitalize;
+}
+
+/* ===================================================================
+   PRINT STYLES - For Resume
+   =================================================================== */
+
+@media print {
+  body * {
+    visibility: hidden;
+  }
+
+  #resume-content,
+  #resume-content * {
+    visibility: visible;
+  }
+
+  #resume-content {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+  }
+
+  /* Hide glass effects in print */
+  .glass-premium,
+  .glass-frosted,
+  .glass-liquid,
+  .liquid-glass-apple,
+  .liquid-glass-cursor-reactive {
+    background: white !important;
+    backdrop-filter: none !important;
+    border: none !important;
+    box-shadow: none !important;
   }
 }
